@@ -15,7 +15,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const dotenv = require("dotenv");
 
 app.use(cors({
-  origin: "https://homifi-frontend.onrender.com",
+  origin: "https://storynestt-frontend.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, 
 }));
@@ -42,7 +42,7 @@ passport.use(new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID_GOOGLE,
       clientSecret: process.env.CLIENT_SECRET_GOOGLE,
-      callbackURL: "https://homifi-backend.onrender.com/auth/google/callback",
+      callbackURL: "https://storynest-backend-i8jk.onrender.com/auth/google/callback",
 
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -214,7 +214,7 @@ app.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     
-    res.redirect("https://homifi-frontend.onrender.com"); 
+    res.redirect("https://storynestt-frontend.onrender.com"); 
   }
 );
 
