@@ -331,5 +331,5 @@ app.get("/user/:id/dashboard", async (req, res) => {
 
 const port = 8080;
 app.listen(port,()=>{
-    console.log(listening to port ${port});
+    console.log(`listening to port ${port}`);
 })
