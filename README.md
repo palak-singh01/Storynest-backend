@@ -1,87 +1,138 @@
+# Storynest Backend – APIs and Authentication
 
----
+The *backend* of Storynest handles all server-side operations, including *API endpoints, database operations, authentication*, and integration with the frontend.  
 
-### 📄 `server/README.md`
-```markdown
-# HomiFi - Backend
-
-The **backend** of HomiFi powers the entire blogging platform by handling data, authentication, and API endpoints.  
-It’s built with **Node.js + Express + MongoDB** and integrates **Google OAuth 2.0** for secure login.
-
-This service is the **engine** behind the platform: it stores user data, manages blogs, and enables community interactions through comments.
+It is built with *Node.js + Express + MongoDB* and supports *Google OAuth 2.0* for secure login.
 
 ---
 
 ## 🌟 What This Backend Does
-- **Secure Authentication** – Users log in with Google (OAuth 2.0) instead of managing new accounts.  
-- **Blog Management** – Create, edit, delete, and fetch blogs via REST APIs.  
-- **Comment System** – Add and fetch comments tied to specific blogs.  
-- **MongoDB Integration** – Data persistence using Mongoose models.  
-- **Session Management** – Ensures users stay logged in across their session securely.  
-- **Scalable API Design** – Clean REST architecture, ready for scaling.  
+- *Blog Management* – Create, read, update, and delete blogs  
+- *Commenting System* – Users can post comments on any blog  
+- *Authentication* – Google OAuth 2.0 login  
+- *REST API* – Provides endpoints for the frontend to interact with  
 
 ---
-## Demo-video
-https://drive.google.com/drive/folders/14IBuUbnINqiBrYk3FFAm7wlgXlkgT14v?usp=drive_link
+🔗 *Frontend Repository*  
+The Frontend for Storynest is located here:  
+👉 [Storynest Frontend Repository](https://github.com/palak-singh01/Storynestt-Frontend.git)
 
-## 📂 Project Structure
-server/
-│── init/ # Database connection setup
-│── models/ # Mongoose schemas (User, Blog, Comment)
-│── middleware.js # Custom middleware for authentication
-│── index.js # Entry point (Express app)
-│── package.json
-│── .env # Environment variables
+## 🔗 How Frontend & Backend Work Together
+
+Storynest is split into two repositories that should be placed together in a *single parent folder*:
+
+
+Storynest/
+│
+├── frontend/       # React + Vite app
+└── backend/        # Node.js + Express + MongoDB API
+
+
+The *frontend communicates with the backend* via *HTTP requests (Axios)*:
+
+* GET /api/blogs → Fetch all blogs  
+* POST /api/blogs → Create a blog  
+* POST /api/blogs/:id/comments → Add a comment  
+
+This setup allows the frontend and backend to remain separate but work seamlessly together.
 
 ---
 
-## ⚙️ Getting Started
+## ⚙ Installation (Frontend + Backend)
 
-### 1️⃣ Install Dependencies
-```bash
-cd server
+### 1️⃣ Organize Repos in One Folder
+
+bash
+mkdir Storynest
+cd Storynest
+
+# Clone frontend and backend
+git clone https://github.com/palak-singh01/Storynestt-Frontend.git frontend
+git clone https://github.com/palak-singh01/Storynest-backend.git backend
+
+
+### 2️⃣ Setup Backend
+
+bash
+cd backend
 npm install
 
-## 2️⃣ Configure Environment
 
-Create a .env file in server/:
+Create a .env file in backend/:
 
-PORT=5000
+env
+PORT=8080
 MONGO_URI=mongodb://localhost:27017/homifi
 SESSION_SECRET=your_secret_key
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-GOOGLE_CALLBACK_URL=http://localhost:5000/auth/google/callback
-
-## 3️⃣ Run the Server
-npm run dev   # if nodemon is installed
-# OR
-node index.js
+GOOGLE_CALLBACK_URL=http://localhost:8080/auth/google/callback
 
 
-API will be served at http://localhost:5000
-.
+Run backend:
 
-## 📡 Example API Endpoints
+bash
+npm run dev
 
-GET /api/blogs → Fetch all blogs
 
-POST /api/blogs → Create a new blog (requires login)
+Backend runs at *[http://localhost:8080](http://localhost:8080)*
 
-GET /api/blogs/:id → Fetch blog by ID
+---
 
-POST /api/blogs/:id/comments → Add comment to blog
+### 3️⃣ Setup Frontend
 
-GET /auth/google → Start Google login
+bash
+cd ../frontend
+npm install
 
-GET /auth/google/callback → Google OAuth callback
 
-## 🛠️ Tech Stack
+Create a .env file in frontend/:
 
-Node.js + Express – Web server and routing.
+env
+VITE_API_URL=http://localhost:8080
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
 
-MongoDB + Mongoose – Database and ORM.
 
-Passport.js (Google OAuth 2.0) – Authentication.
+Run frontend:
 
-Express-session – Session management.
+bash
+npm run dev
+
+
+Frontend runs at *[http://localhost:5173](http://localhost:5173)*
+
+---
+
+### 4️⃣ Open in Browser
+
+* Visit [http://localhost:5173](http://localhost:5173) → React frontend  
+* It connects to backend APIs at [http://localhost:8080](http://localhost:8080)  
+
+✅ Anyone can run *both frontend and backend together* from a single parent folder.
+
+---
+
+## 📂 Project Structure
+
+backend/
+│── models/       # MongoDB schemas
+│── routes/       # Express route files
+│── controllers/  # Logic for each route
+│── init/         # Database connection & app setup
+│── index.js      # Entry point
+│── package.json
+│── .env          # Environment variables
+
+
+---
+
+## 🛠 Tech Stack
+- *Node.js + Express* – Backend server and API routing  
+- *MongoDB + Mongoose* – Database and object modeling  
+- *Google OAuth 2.0* – Authentication  
+- *Axios* – Used by frontend for API requests  
+
+---
+
+## 📜 License
+This project is licensed under the MIT License.
