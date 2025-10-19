@@ -288,7 +288,7 @@ app.delete("/blog/:id/review/:reviewId", isLoggedIn, isReviewAuthor,async(req,re
     let {id, reviewId}= req.params;
     await Content.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
      await Review.findByIdAndDelete(reviewId);
-     return res.redirect(/blog/${id});
+     return res.redirect(`/blog/${id}`);
 })
 
 
